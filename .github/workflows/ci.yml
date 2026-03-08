@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-test-security:
-    runs-on: [self-hosted, linux, x64]
+    runs-on: [self-hosted, linux, X64]
 
     env:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
