@@ -145,3 +145,9 @@ minikube-linux-amd64
 
 # local binaries
 minikube-linux-amd64
+
+# GitHub Actions self-hosted runner
+actions-runner/
+
+# local binaries
+minikube-linux-amd64
