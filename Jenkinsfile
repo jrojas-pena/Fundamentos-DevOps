@@ -9,21 +9,21 @@ pipeline {
     }
 
     stages {
-
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/jrojas-pena/Fundamentos-DevOps.git'
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Test') {
+            agent {
+                docker {
+                    image 'node:22-alpine'
+                    reuseNode true
+                }
+            }
             steps {
                 sh 'npm ci'
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
                 sh 'npm test'
             }
         }
