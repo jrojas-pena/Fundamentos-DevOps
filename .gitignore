@@ -137,3 +137,11 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+minikube-linux-amd64
+minikube-linux-amd64
+
+# local binaries
+minikube-linux-amd64
+
+# local binaries
+minikube-linux-amd64
