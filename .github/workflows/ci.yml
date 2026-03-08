@@ -5,10 +5,16 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build-test-security:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
+
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -27,18 +33,18 @@ jobs:
         run: npm test
 
       - name: SonarQube Scan
-        if: ${{ secrets.SONAR_TOKEN != '' && secrets.SONAR_HOST_URL != '' }}
+        if: ${{ env.SONAR_TOKEN != '' && env.SONAR_HOST_URL != '' }}
         uses: SonarSource/sonarqube-scan-action@v4
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
 
       - name: Setup Snyk
-        if: ${{ secrets.SNYK_TOKEN != '' }}
+        if: ${{ env.SNYK_TOKEN != '' }}
         uses: snyk/actions/setup@master
 
       - name: Run Snyk test
-        if: ${{ secrets.SNYK_TOKEN != '' }}
+        if: ${{ env.SNYK_TOKEN != '' }}
         run: snyk test --severity-threshold=high
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
