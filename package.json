@@ -1,0 +1,23 @@
+{
+  "name": "fundamentos-devops",
+  "version": "1.0.0",
+  "description": "Laboratorio Fundamentos DevOps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrojas-pena/Fundamentos-DevOps.git"
+  },
+  "author": "Juan Diego Rojas Pena",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrojas-pena/Fundamentos-DevOps/issues"
+  },
+  "homepage": "https://github.com/jrojas-pena/Fundamentos-DevOps#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "prom-client": "^15.1.3"
+  }
+}
