@@ -16,19 +16,15 @@ pipeline {
             }
         }
 	stage('Debug Workspace') {
-    steps {
-        sh 'pwd'
-        sh 'ls -la'
-    }
-}
-        stage('Test') {
+
+	stage('Test') {
             steps {
                 sh '''
                   docker run --rm \
                   -v "$PWD":/workspace \
                   -w /workspace \
                   node:22-alpine \
-                  sh -c "npm install && npm test"
+                  sh -c "npm ci && npm test"
                 '''
             }
         }
