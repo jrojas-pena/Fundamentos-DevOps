@@ -9,23 +9,23 @@ pipeline {
     }
 
     stages {
-
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/jrojas-pena/Fundamentos-DevOps.git'
             }
         }
 
-
-	stage('Test') {
+        stage('Debug Workspace') {
             steps {
-                sh '''
-                  docker run --rm \
-                  -v "$PWD":/workspace \
-                  -w /workspace \
-                  node:22-alpine \
-                  sh -lc "npm ci && npm test"
-                '''
+                sh 'pwd'
+                sh 'ls -la'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'npm ci'
+                sh 'npm test'
             }
         }
 
