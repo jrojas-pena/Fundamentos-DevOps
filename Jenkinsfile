@@ -9,6 +9,7 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/jrojas-pena/Fundamentos-DevOps.git'
@@ -16,28 +17,27 @@ pipeline {
         }
 
         stage('Test') {
-            agent {
-                docker {
-                    image 'node:22-alpine'
-                    reuseNode true
-                }
-            }
             steps {
-                sh 'npm ci'
-                sh 'npm test'
+                sh '''
+                  docker run --rm \
+                  -v "$PWD":/workspace \
+                  -w /workspace \
+                  node:22-alpine \
+                  sh -c "npm ci && npm test"
+                '''
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'minikube image build -t fundamentos-devops:2.0 .'
+                sh 'docker build -t fundamentos-devops:2.0 .'
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl set image deployment/fundamentos-devops fundamentos-devops=fundamentos-devops:2.0'
-                sh 'kubectl rollout status deployment/fundamentos-devops'
+                sh 'kubectl rollout restart deployment fundamentos-devops'
+                sh 'kubectl rollout status deployment fundamentos-devops'
             }
         }
     }
