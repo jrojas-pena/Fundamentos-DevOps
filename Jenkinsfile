@@ -24,7 +24,7 @@ pipeline {
                   -v "$PWD":/workspace \
                   -w /workspace \
                   node:22-alpine \
-                  sh -c "npm ci && npm test"
+                  sh -lc "npm ci && npm test"
                 '''
             }
         }
