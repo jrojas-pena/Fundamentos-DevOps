@@ -15,7 +15,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/jrojas-pena/Fundamentos-DevOps.git'
             }
         }
-	stage('Debug Workspace') {
+
 
 	stage('Test') {
             steps {
